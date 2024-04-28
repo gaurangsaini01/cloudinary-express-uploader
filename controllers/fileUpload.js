@@ -60,9 +60,7 @@ async function imageUpload(req, res) {
 async function videoUpload(req, res) {
   try {
     const { name, email, tags } = req.body;
-    console.log(name, email, tags);
     const file = req.files.videoFile;
-    console.log(file);
 
     //validation
 
