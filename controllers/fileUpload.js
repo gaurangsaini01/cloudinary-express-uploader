@@ -6,8 +6,8 @@ function isSupportedType(type, supportedTypes) {
   return supportedTypes.includes(type);
 }
 //function to upload to cloudinary
-async function uploadFileToCloudinary(file, folder,quality=100) {
-  const options = { folder, resource_type: "auto",quality};
+async function uploadFileToCloudinary(file, folder, quality = 100) {
+  const options = { folder, resource_type: "auto", quality };
   return await cloudinary.uploader.upload(file.tempFilePath, options);
 }
 
@@ -105,28 +105,28 @@ async function videoUpload(req, res) {
   }
 }
 async function imageReducerUpload(req, res) {
-  try{
+  try {
     const { name, email, tags } = req.body;
     console.log(name, email, tags);
     const file = req.files.imageFile;
     console.log(file);
 
     //validation
-    const supportedTypes = ["jpeg", "jpg", "png","heic"];
+    const supportedTypes = ["jpeg", "jpg", "png", "heic"];
     const type = file.name
       .substring(file.name.lastIndexOf(".") + 1)
       .toLowerCase();
-console.log(type)
+    console.log(type);
     if (!isSupportedType(type, supportedTypes)) {
       return res.status(500).json({
         success: false,
         message: "Invalid File Type",
       });
     }
-    
+
     //if supported , now upload to cloudinary
     //using upload function of cloudinary
-    const response = await uploadFileToCloudinary(file,"fIleUploadClass2");
+    const response = await uploadFileToCloudinary(file, "fIleUploadClass2");
     console.log(response);
 
     try {
@@ -147,7 +147,7 @@ console.log(type)
       success: true,
       message: "image size reduced and uploaded to cloudinary Successfully",
     });
-  }catch(err){
+  } catch (err) {
     return res.status(400).json({
       success: false,
       message: "Ni hua bhai",
